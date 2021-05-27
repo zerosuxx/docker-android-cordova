@@ -102,4 +102,3 @@ RUN cd /opt \
 
 WORKDIR /app
 
-ENTRYPOINT /bin/bash
