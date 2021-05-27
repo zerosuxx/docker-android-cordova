@@ -73,14 +73,15 @@ ENV ANDROID_SDK_TOOLS_URL="https://dl.google.com/android/repository/commandlinet
 ENV ANDROID_NDK_HOME="${ANDROID_NDK}/android-ndk-r${ANDROID_NDK_VERSION}"
 ENV PATH="${PATH}:${ANDROID_SDK_ROOT}/cmdline-tools/tools/bin:${ANDROID_SDK_ROOT}/cmdline-tools/latest/bin:${ANDROID_SDK_ROOT}/tools:${ANDROID_SDK_ROOT}/platform-tools:${ANDROID_NDK}"
 
-RUN mkdir -p "${ANDROID_SDK_ROOT}/.android" \
+RUN mkdir -p "${ANDROID_SDK_ROOT}" \
     && cd "${ANDROID_SDK_ROOT}" \
     && curl -o sdk.zip ${ANDROID_SDK_TOOLS_URL} \
     && unzip sdk.zip -d /tmp \
     && rm sdk.zip \
     && mkdir cmdline-tools \
     && mv /tmp/cmdline-tools cmdline-tools/tools \
-    && echo '### User Sources for Android SDK Manager' > "${ANDROID_SDK_ROOT}/.android/repositories.cfg" \
+    && mkdir "${HOME}/.android" \
+    && echo '### User Sources for Android SDK Manager' > "${HOME}/.android/repositories.cfg" \
     && yes | sdkmanager --licenses \
     && echo "Installing build tools " \
     && yes | sdkmanager "build-tools;${ANDROID_BUILD_TOOLS_VERSION}"
