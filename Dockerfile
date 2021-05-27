@@ -67,21 +67,20 @@ ARG ANDROID_NDK_VERSION="21"
 ARG ANDROID_BUILD_TOOLS_VERSION="29.0.2"
 ARG ANDROID_SDK_TOOLS_VERSION="7302050"
 
-ENV ANDROID_HOME="/opt/android-sdk"
+ENV ANDROID_SDK_ROOT="/opt/android-sdk"
 ENV ANDROID_NDK="/opt/android-ndk"
 ENV ANDROID_SDK_TOOLS_URL="https://dl.google.com/android/repository/commandlinetools-linux-${ANDROID_SDK_TOOLS_VERSION}_latest.zip"
-ENV ANDROID_SDK_HOME="${ANDROID_HOME}"
 ENV ANDROID_NDK_HOME="${ANDROID_NDK}/android-ndk-r${ANDROID_NDK_VERSION}"
-ENV PATH="${PATH}:${ANDROID_HOME}/cmdline-tools/tools/bin:${ANDROID_HOME}/cmdline-tools/latest/bin:${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools:${ANDROID_NDK}"
+ENV PATH="${PATH}:${ANDROID_SDK_ROOT}/cmdline-tools/tools/bin:${ANDROID_SDK_ROOT}/cmdline-tools/latest/bin:${ANDROID_SDK_ROOT}/tools:${ANDROID_SDK_ROOT}/platform-tools:${ANDROID_NDK}"
 
-RUN mkdir -p "${ANDROID_HOME}/.android" \
-    && cd "${ANDROID_HOME}" \
+RUN mkdir -p "${ANDROID_SDK_ROOT}/.android" \
+    && cd "${ANDROID_SDK_ROOT}" \
     && curl -o sdk.zip ${ANDROID_SDK_TOOLS_URL} \
     && unzip sdk.zip -d /tmp \
     && rm sdk.zip \
     && mkdir cmdline-tools \
     && mv /tmp/cmdline-tools cmdline-tools/tools \
-    && echo '### User Sources for Android SDK Manager' > "${ANDROID_HOME}/.android/repositories.cfg" \
+    && echo '### User Sources for Android SDK Manager' > "${ANDROID_SDK_ROOT}/.android/repositories.cfg" \
     && yes | sdkmanager --licenses \
     && echo "Installing build tools " \
     && yes | sdkmanager "build-tools;${ANDROID_BUILD_TOOLS_VERSION}"

@@ -8,7 +8,7 @@ A **docker** image build with **Android** build environment.
 
 It includes the following components:
 
-* NodeJS 14
+* NodeJS v14
 * Android NDK r21
 * Android Command Line (build) tools 29.0.2
 * Android SDK tools 7302050
