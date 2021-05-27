@@ -57,7 +57,6 @@ RUN apt-get install -y \
 
 # Installing cordova
 RUN npm install -g cordova \
-    && npm rebuild node-sass \
     && cordova telemetry off \
     && npm cache clean --force \
     && rm -rf /tmp/* /var/tmp/*
